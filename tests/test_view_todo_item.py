@@ -2,11 +2,10 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.todo_elements import Elements
 
 
-def test_view_todo_items(set_up) -> None:
-    # browser = playwright.chromium.launch(headless=False)
-    # context = browser.new_context()
-    # page = context.new_page()
-    page = set_up
+def test_view_todo_items(playwright: Playwright) -> None:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
     elements = Elements(page)
 
     page.goto("https://wc-react-todo-app.netlify.app/")
@@ -35,9 +34,7 @@ def test_view_todo_items(set_up) -> None:
     print(f"All items on the to-do list are successfully viewed ")
 
     # ---------------------
-    # context.close()
-    # browser.close()
+    context.close()
+    browser.close()
 
 
-with sync_playwright() as playwright:
-    test_view_todo_items(playwright)

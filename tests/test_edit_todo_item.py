@@ -2,11 +2,10 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.todo_elements import Elements
 
 
-def test_edit_todo_item(set_up) -> None:
-    # browser = playwright.chromium.launch(headless=False)
-    # context = browser.new_context()
-    # page = context.new_page()
-    page = set_up
+def test_edit_todo_item(playwright: Playwright) -> None:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
     elements = Elements(page)
 
     page.goto("https://wc-react-todo-app.netlify.app/")
@@ -23,9 +22,7 @@ def test_edit_todo_item(set_up) -> None:
     print(f"Previous item of 'Groceries' has been successfully changed into 'Holiday Plan' in to-do list ")
 
     # ---------------------
-    # context.close()
-    # browser.close()
+    context.close()
+    browser.close()
 
 
-with sync_playwright() as playwright:
-    test_edit_todo_item(playwright)

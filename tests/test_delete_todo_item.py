@@ -2,10 +2,10 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.todo_elements import Elements
 
 
-def test_delete_todo_item(set_up) -> None:
-    # browser = playwright.chromium.launch(headless=False)
-    # context = browser.new_context()
-    page = set_up
+def test_delete_todo_item(playwright: Playwright) -> None:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
     elements = Elements(page)
 
     page.goto("https://wc-react-todo-app.netlify.app/")
@@ -19,9 +19,8 @@ def test_delete_todo_item(set_up) -> None:
     print(f"Item 'Groceries' has been successfully removed from the to-do list")
 
     # ---------------------
-    # context.close()
-    # browser.close()
+    context.close()
+    browser.close()
 
 
-with sync_playwright() as playwright:
-    test_delete_todo_item(playwright)
+
